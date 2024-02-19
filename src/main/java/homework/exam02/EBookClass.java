@@ -13,7 +13,10 @@ public class EBookClass extends BookClass{
     }
 
     public void deviceInfo(){
-        super.bookInfo();
+        System.out.println("책 제목 : " + super.getTitle());
+        System.out.println("저자 : " + super.getAuthor());
+        System.out.println("가격 : " + super.getPrice());
+        System.out.println("공급자 : " + super.getPublisher());
         System.out.println("호환 가능한 기기는 " + superDevices);
         System.out.println("---------------------");
     }

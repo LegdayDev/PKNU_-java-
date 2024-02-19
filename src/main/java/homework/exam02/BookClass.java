@@ -33,11 +33,4 @@ public class BookClass {
     public String getTitle() {
         return title;
     }
-
-    public void bookInfo(){
-        System.out.println("책 제목 : " + title);
-        System.out.println("저자 : " + author);
-        System.out.println("가격 : " + price);
-        System.out.println("공급자 : " + publisher);
-    }
 }

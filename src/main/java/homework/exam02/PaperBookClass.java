@@ -13,7 +13,10 @@ public class PaperBookClass extends BookClass {
     }
 
     public void sizeInfo() {
-        super.bookInfo();
+        System.out.println("책 제목 : " + super.getTitle());
+        System.out.println("저자 : " + super.getAuthor());
+        System.out.println("가격 : " + super.getPrice());
+        System.out.println("공급자 : " + super.getPublisher());
         System.out.println("책 페이지는 총 : " + size + "쪽 입니다.");
         System.out.println("---------------------");
     }
