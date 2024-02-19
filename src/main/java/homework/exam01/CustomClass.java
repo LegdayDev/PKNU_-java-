@@ -1,4 +1,4 @@
-package homework;
+package homework.exam01;
 
 public class CustomClass {
     int id;

@@ -1,4 +1,4 @@
-package homework;
+package homework.exam01;
 
 /**
  * <h2>추석과제</h2>
