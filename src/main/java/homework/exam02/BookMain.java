@@ -47,11 +47,11 @@ public class BookMain {
                     }
                     System.out.println();
                 }
-                case 3 -> {
+                case 3 -> { // 도서 삭제
                     System.out.print("삭제할 책 제목을 입력해주세요 >> ");
-                    String removeTitle = sc.nextLine();
+                    String title = sc.nextLine();
                     
-                    BookClass book = findBook(removeTitle, bookList);
+                    BookClass book = findBook(title, bookList);
                     if (book == null) System.out.println("찾으시는 책이 없습니다.");
                     else bookList.remove(book);
                     System.out.println();
@@ -65,9 +65,9 @@ public class BookMain {
                 }
                 case 5 -> { // 도서 구입
                     System.out.print("구입 하실 책 제목을 알려주세요 >> ");
-                    String buyBookTitle = sc.nextLine();
+                    String title = sc.nextLine();
                     
-                    BookClass book = findBook(buyBookTitle, bookList);
+                    BookClass book = findBook(title, bookList);
                     if (book == null) System.out.println("구매 하실 책이 존재하지 않습니다 !!");
                     else buyTheBook(book);
                     System.out.println();
@@ -113,7 +113,8 @@ public class BookMain {
         String publisher = sc.nextLine();
         System.out.print("호환기기를 입력하세요 : ");
         String superDevices = sc.nextLine();
-        bookList.add(new EBookClass(title, author, price, publisher, superDevices));
+        EBookClass eBookClass = new EBookClass(title, author, price, publisher, superDevices);
+        bookList.add(eBookClass);
         System.out.println("책 저장이 완료 되었습니다 !!");
     }
 
@@ -128,9 +129,9 @@ public class BookMain {
     }
 
     // 책 제목을 검색하여 책을 반환
-    private static BookClass findBook(String findTitle, List<BookClass> bookList) {
+    private static BookClass findBook(String title, List<BookClass> bookList) {
         for (BookClass book : bookList) {
-            if (book.getTitle().equals(findTitle)) { // 책 제목과 찾는책 제목이 같다면 객체 반환
+            if (book.getTitle().equals(title)) { // 책 제목과 찾는책 제목이 같다면 객체 반환
                 return book;
             }
         }
@@ -144,11 +145,11 @@ public class BookMain {
     }
 
     // 책 구입을 위한 메서드
-    private static void buyTheBook(BookClass buyBook) {
-        if (buyBook instanceof EBookClass eBook) { //전자책이라면
+    private static void buyTheBook(BookClass book) {
+        if (book instanceof EBookClass eBook) { //전자책이라면
             float totalPrice = eBook.getPrice() * eBook.getTax();
             System.out.printf("%s 전자책을 %.1f 원에 구매하셨습니다! 호환기기는 %s 입니다.",eBook.getTitle(),totalPrice,eBook.getCompatibleDevices());
-        } else if (buyBook instanceof PaperBookClass paperBook) { //종이책이라면
+        } else if (book instanceof PaperBookClass paperBook) { //종이책이라면
             float totalPrice = paperBook.getPrice() * paperBook.getTax();
             System.out.printf("%s 종이책을 %.1f 원에 구매하셨습니다! 쪽수는 %d 쪽입니다.",paperBook.getTitle(),totalPrice,paperBook.getSize());
         }
