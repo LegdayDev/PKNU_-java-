@@ -21,7 +21,8 @@ public class EBookClass extends BookClass {
         System.out.println("---------------------");
     }
 
-    public EBookClass purchase() {
+    @Override
+    public BookClass purchase() {
         float totalPrice = getPrice() * getTax();
         System.out.printf("%s 전자책을 %.1f 원에 구매하셨습니다! 호환기기는 %s 입니다.", getTitle(), totalPrice, getCompatibleDevices());
         return this;

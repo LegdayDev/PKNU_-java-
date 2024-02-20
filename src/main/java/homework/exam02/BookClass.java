@@ -33,4 +33,8 @@ public class BookClass {
     public String getTitle() {
         return title;
     }
+
+    public BookClass purchase(){
+        return null;
+    }
 }

@@ -21,7 +21,8 @@ public class PaperBookClass extends BookClass {
         System.out.println("---------------------");
     }
 
-    public PaperBookClass purchase() {
+    @Override
+    public BookClass purchase() {
         float totalPrice = getPrice() * getTax();
         System.out.printf("%s 종이책을 %.1f 원에 구매하셨습니다! 쪽수는 %d 쪽입니다.", getTitle(), totalPrice, getSize());
         return this;
