@@ -26,7 +26,7 @@ public class BookMain {
                 case 1 -> { // 도서 등록(전자책 or 종이책)
                     System.out.print("전자책은 1번, 종이책은 2번을 입력해주세요 >> ");
                     int bookType = sc.nextInt();
-                    sc.nextLine();
+                    sc.nextLine(); // 버퍼 비우기
                     
                     if (bookType == 1) { // 전자책이라면
                         saveEBook(sc, bookList);
@@ -117,9 +117,10 @@ public class BookMain {
         System.out.println("책 저장이 완료 되었습니다 !!");
     }
 
+    // 책 제목 or 책 저자가 찾는 키워드와 같으면 객체 반환
     private static BookClass searchBook(String keyword, List<BookClass> bookList) {
         for (BookClass book : bookList) {
-            if (book.getTitle().equals(keyword) || book.getAuthor().equals(keyword)) { // 책 제목 or 책 저자가 찾는 키워드와 같으면 객체 반환
+            if (book.getTitle().equals(keyword) || book.getAuthor().equals(keyword)) {
                 return book;
             }
         }
@@ -136,7 +137,7 @@ public class BookMain {
         return null; // 찾지 못했을 경우 null 
     }
 
-    // 종이책인지 전자책인지 구분하기 위한 메서드
+    // 종이책인지 전자책인지 구분하여 각 책의 정보를 출력
     private static void bookInfo(BookClass book) {
         if (book instanceof EBookClass eBook) eBook.deviceInfo();
         else if (book instanceof PaperBookClass paperBook) paperBook.sizeInfo();
@@ -145,19 +146,11 @@ public class BookMain {
     // 책 구입을 위한 메서드
     private static void buyTheBook(BookClass buyBook) {
         if (buyBook instanceof EBookClass eBook) { //전자책이라면
-            System.out.println("책 제목 : " + eBook.getTitle());
-            System.out.println("저자 : " + eBook.getAuthor());
-            System.out.println("가격 : " + (eBook.getPrice() * eBook.getTax()) + "원");
-            System.out.println("발행처 : " + eBook.getPublisher());
-            System.out.println("호환 기기 : " + eBook.getSuperDevices());
-            System.out.println("구입 완료 !!");
+            float totalPrice = eBook.getPrice() * eBook.getTax();
+            System.out.printf("%s 전자책을 %.1f 원에 구매하셨습니다! 호환기기는 %s 입니다.",eBook.getTitle(),totalPrice,eBook.getCompatibleDevices());
         } else if (buyBook instanceof PaperBookClass paperBook) { //종이책이라면
-            System.out.println("책 제목 : " + paperBook.getTitle());
-            System.out.println("저자 : " + paperBook.getAuthor());
-            System.out.println("가격 : " + (paperBook.getPrice() * paperBook.getTax()) + "원");
-            System.out.println("발행처 : " + paperBook.getPublisher());
-            System.out.println("호환 기기 : " + paperBook.getSize());
-            System.out.println("구입 완료 !!");
+            float totalPrice = paperBook.getPrice() * paperBook.getTax();
+            System.out.printf("%s 종이책을 %.1f 원에 구매하셨습니다! 쪽수는 %d 쪽입니다.",paperBook.getTitle(),totalPrice,paperBook.getSize());
         }
     }
 }
