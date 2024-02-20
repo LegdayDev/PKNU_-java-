@@ -70,6 +70,7 @@ public class BookMain {
                     BookClass book = findBook(title, bookList);
                     if (book == null) System.out.println("구매 하실 책이 존재하지 않습니다 !!");
                     else buyTheBook(book);
+                    bookList.remove(book); // 구매했으니 도서목록에서 삭제
                     System.out.println();
                 }
             }
@@ -84,36 +85,20 @@ public class BookMain {
 
     // 종이책 저장을 위한 메서드
     private static void savePaperBook(Scanner sc, List<BookClass> bookList) {
-        System.out.print("제목을 입력하세요 : ");
-        String title = sc.nextLine();
-        System.out.print("저자를 입력하세요 : ");
-        String author = sc.nextLine();
-        System.out.print("가격를 입력하세요 : ");
-        int price = sc.nextInt();
-        sc.nextLine();
-        System.out.print("발행자를 입력하세요 : ");
-        String publisher = sc.nextLine();
+        BookClass book = inputBook(sc);
         System.out.print("쪽수 입력하세요 : ");
         int size = sc.nextInt();
         sc.nextLine();
-        bookList.add(new PaperBookClass(title, author, price, publisher, size));
+        bookList.add(new PaperBookClass(book.getTitle(),book.getAuthor(),book.getPrice(),book.getPublisher(), size));
         System.out.println("책 저장이 완료 되었습니다 !!");
     }
 
     // 전자책 저장을 위한 메서드
     private static void saveEBook(Scanner sc, List<BookClass> bookList) {
-        System.out.print("제목을 입력하세요 : ");
-        String title = sc.nextLine();
-        System.out.print("저자를 입력하세요 : ");
-        String author = sc.nextLine();
-        System.out.print("가격를 입력하세요 : ");
-        int price = sc.nextInt();
-        sc.nextLine();
-        System.out.print("발행자를 입력하세요 : ");
-        String publisher = sc.nextLine();
+        BookClass book = inputBook(sc);
         System.out.print("호환기기를 입력하세요 : ");
         String superDevices = sc.nextLine();
-        EBookClass eBookClass = new EBookClass(title, author, price, publisher, superDevices);
+        EBookClass eBookClass = new EBookClass(book.getTitle(),book.getAuthor(),book.getPrice(),book.getPublisher(), superDevices);
         bookList.add(eBookClass);
         System.out.println("책 저장이 완료 되었습니다 !!");
     }
@@ -153,5 +138,24 @@ public class BookMain {
             float totalPrice = paperBook.getPrice() * paperBook.getTax();
             System.out.printf("%s 종이책을 %.1f 원에 구매하셨습니다! 쪽수는 %d 쪽입니다.",paperBook.getTitle(),totalPrice,paperBook.getSize());
         }
+    }
+
+    /**
+     * 반복하는 코드 메서드 추출
+     * @param sc
+     * @return
+     */
+    private static BookClass inputBook(Scanner sc){
+        System.out.print("제목을 입력하세요 : ");
+        String title = sc.nextLine();
+        System.out.print("저자를 입력하세요 : ");
+        String author = sc.nextLine();
+        System.out.print("가격를 입력하세요 : ");
+        int price = sc.nextInt();
+        sc.nextLine();
+        System.out.print("발행자를 입력하세요 : ");
+        String publisher = sc.nextLine();
+
+        return new BookClass(title,author,price,publisher);
     }
 }
